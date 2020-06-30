@@ -1,0 +1,37 @@
+0x00400000  0x00800513  addi x10,x0,0x000000088    	li a0, 8
+0x00400004  0x00900893  addi x17,x0,0x000000099    	li a7, 9   #-- Servicio Sbrk
+0x00400008  0x00000073  ecall                 10   	ecall
+0x0040000c  0x06400313  addi x6,x0,0x00000064 13   	li t1, 100 #a donde quiero ir
+0x00400010  0x00100393  addi x7,x0,0x00000001 14   	li t2, 1 #donde estoy
+0x00400014  0x00752023  sw x7,0x00000000(x10) 16   bucle1:	sw t2, 0(a0) #guarda	
+0x00400018  0x00450513  addi x10,x10,0x000000017   	addi a0, a0, 4 #suma a la direccion
+0x0040001c  0x00138393  addi x7,x7,0x00000001 18   	addi t2, t2, 1 #suma al contador para dar valor a memoria
+0x00400020  0xfe639ae3  bne x7,x6,0xfffffffa  20   	bne t2, t1, bucle1
+0x00400024  0x100404b7  lui x9,0x00010040     27   	li s1, 0x10040000 #direccion de memoria donde se encuentra el primer dato de la senal
+0x00400028  0x00048493  addi x9,x9,0x00000000      
+0x0040002c  0x10040937  lui x18,0x00010040    28   	li s2, 0x100401a0 #direccion de memoria donde se guarda la salida
+0x00400030  0x1a090913  addi x18,x18,0x000001a     
+0x00400034  0x00100293  addi x5,x0,0x00000001 30   	li t0, 1 #contador auxiliar	
+0x00400038  0x00a00993  addi x19,x0,0x0000000a31   	li s3, 10 #meta ciclos bucle2
+0x0040003c  0x00092303  lw x6,0x00000000(x18) 32   bucle2:	lw t1, 0(s2) #salida actual
+0x00400040  0xffc92e03  lw x28,0xfffffffc(x18)33   	lw t3, -4(s2) #salida anterior
+0x00400044  0xff892383  lw x7,0xfffffff8(x18) 34   	lw t2, -8(s2) #salida trasanterior
+0x00400048  0x0004ae83  lw x29,0x00000000(x9) 35   	lw t4, (s1) #entrada correspondiente a salida actual
+0x0040004c  0xfec4af03  lw x30,0xffffffec(x9) 36   	lw t5, -20(s1) #entrada hace 5 salidas
+0x00400050  0xfd84af83  lw x31,0xffffffd8(x9) 37   	lw t6, -40(s1) #entrada hace 10 salidas
+0x00400054  0x01ce0333  add x6,x28,x28        40   	add t1, t3, t3 #algoritmo
+0x00400058  0x40730333  sub x6,x6,x7          41   	sub t1, t1, t2 #algoritmo
+0x0040005c  0x01d30333  add x6,x6,x29         42   	add t1, t1, t4 #algoritmo
+0x00400060  0x41e30333  sub x6,x6,x30         43   	sub t1, t1, t5 #algoritmo
+0x00400064  0x41e30333  sub x6,x6,x30         44   	sub t1, t1, t5 #algoritmo
+0x00400068  0x01f30333  add x6,x6,x31         45   	add t1, t1, t6 #algoritmo
+0x0040006c  0x00692023  sw x6,0x00000000(x18) 48   	sw t1, (s2)
+0x00400070  0x00600533  add x10,x0,x6         50   	mv a0, t1 #mueve el resultado obtenido al registro a0 para imprimirlo
+0x00400074  0x00100893  addi x17,x0,0x0000000151   	li a7, 1#-- Imprime numero entero guardado en a0
+0x00400078  0x00000073  ecall                 52   	ecall
+0x0040007c  0x00448493  addi x9,x9,0x00000004 54   	addi s1, s1, 4 #Aumenta la direccion a memoria de la entrada al siguiente dato
+0x00400080  0x00490913  addi x18,x18,0x000000055   	addi s2, s2, 4 #Aumenta la direccion a memoria de la salida al siguiente especio
+0x00400084  0x00128293  addi x5,x5,0x00000001 56   	addi t0, t0, 1 #aumenta el contador del bucle para que no sea infinito
+0x00400088  0xfb329ae3  bne x5,x19,0xffffffda 57   	bne t0, s3, bucle2 #Condicion de salto
+0x0040008c  0x00a00893  addi x17,x0,0x0000000a60   	li a7, 10 #-- Terminar programa
+0x00400090  0x00000073  ecall                 61   	ecall	
