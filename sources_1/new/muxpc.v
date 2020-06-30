@@ -26,4 +26,9 @@ module muxpc(
     input sel,
     output [31:0] pc
     );
+    
+    
+   assign pc = sel ? otro : pc4;
+			
+	
 endmodule
