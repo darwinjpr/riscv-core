@@ -3,7 +3,7 @@
 module UnidadControl(
     input wire [31:0] Instruccion,
     
-    output reg [1:0] S_Mux_B, S_Mux_C,
+    output reg [1:0] S_Mux_B, S_Mux_C,//señales de control de los muxes
     output reg REG_RD, REG_WR, MEM_RD, MEM_WR
     );
     wire [6:0] opcode=Instruccion[6:0];
