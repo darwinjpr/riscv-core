@@ -5,21 +5,16 @@ module Fetch(
     input clk,
     input [31:0] otro, //direccion de pc para branch 
     input selmux0,// selector para mux0
-    output reg [31:0] instruccion,
-    output reg [31:0] pc4
+    output [31:0] instruccion,
+    output [31:0] pc_out
     );
+    wire [31:0] sig_pc=4;
+    wire [31:0] pc4=0;
     
-    wire [31:0] pc;
-    wire [31:0] pc4aux;
-    wire [31:0] instruccionaux;
+    //mux_pc u1(.pc_4(pc4),.beq(beq),.jumpaddress(jumpaddress),.sel(sel),.seljump(seljump),.sig_pc(sig_pc));
+    PC pc(.in(sig_pc),.clk(clk),.pc_out(pc_out));
+    memoriainstrucciones nextInst(.Din(pc_out),.Dout(instruccion));
+    add4 add4(pc_out,pc4);
     
-    muxpc mux0(pc4aux,otro,selmux0,pc);
-    add4 add(pc,pc4aux);
-    memoriainstrucciones obtener_instruccion(pc,instruccionaux);
-  
-    always @(posedge clk) begin
-        pc4 <= pc4aux;
-        instruccion <= instruccionaux;
-    end
-				
-endmodule
+    endmodule
+
