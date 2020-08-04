@@ -8,9 +8,9 @@ module SUM_zero(
 
     );
    always @(*) begin
-    SUMout=OperandoA+OperandoB;
+    SUMout=OperandoA+OperandoB;//se realiza la operacion
     
-    if(SUMout==32'd0)
+	   if(SUMout==32'd0)//esto calcula la bandera de zero
 		  Cero = 1'b1;
 		  
 		else
