@@ -12,7 +12,7 @@ module Mux_A(
     
     always @(*) begin
     if (Cero==1'b0 && OPCODE==7'b1100011) begin //si la bandera de ceroestá apagada y el OPCODE es de un branch hace el salto y por tanto la salida es el offset
-        buffer={20{Instruccion[31]},Instruccion[31], Instruccion[7], Instruccion[30:25], Instruccion[8:11]} ;//armo el offset y le extiendo signo
+        buffer={{20{Instruccion[31]}},Instruccion[31], Instruccion[7], Instruccion[30:25], Instruccion[8:11]} ;//armo el offset y le extiendo signo
     Y= buffer<<1;//le hago corrimiento a la izquierda de un bit
     end
     else begin
