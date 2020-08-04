@@ -16,7 +16,7 @@ module Mux_B(
         Salida=resultado;
         end
         
-        2'b01:begin//si la señal da un 01 la salida es un inmediato para addi y lw
+        2'b01:begin//si la seÃ±al da un 01 la salida es un inmediato para addi y lw
         Salida={{20{Instruccion[31]}},Instruccion[31:20]};
         end
         
@@ -26,7 +26,7 @@ module Mux_B(
         end
         
         2'b11:begin// salida para instrucciones que no ocupan el mux
-       Salida=1'bz ;
+       Salida=32'bz ;
         end
         
     endcase
