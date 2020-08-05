@@ -19,11 +19,22 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
-
+//para tipo r unicamente
 module if_id_buffer(
-    input sel,
-    input [31:0] ins,
-    output selo,
-    output [31:0] inso
+    input [31:0] instruccion,
+    output [6:0] opcode,
+    output [4:0] rs1,
+    output [4:0] rs2,
+    output [4:0] rd,
+    output [2:0] funct3,
+    output [6:0] funct7
     );
+    
+    assign opcode = instruccion [6:0];
+    assign rs1 = instruccion [19:15];
+    assign rs2 = instruccion [24:20];
+    assign rd = instruccion [11:7];
+    assign funct3 = instruccion [14:12];
+    assign funct7 = instruccion [31:25];
+    
 endmodule
