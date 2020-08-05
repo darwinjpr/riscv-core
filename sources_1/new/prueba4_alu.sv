@@ -21,9 +21,21 @@
 
 
 module prueba4_alu();
+//PC
+logic [31:0] PC_OutSum;
+logic [31:0] PC;
+logic clk = 0;
+PC regPC(PC,PC_OutSum,clk);
+
+//memoria de instrucciones
 logic [31:0] i; //instrucción
+memoriainstrucciones nextInst(.Din(PC),.Dout(i));
+
+//sumador de PC
+add4 addPC(PC,PC_OutSum);
+
+
 logic [31:0] salida = 0;
-logic clk = 1;
 logic REG_WR = 0;
 //i= 0000000 5'b2 5'b1 000 5'b3 0110011
 //0000000 11100 11100 000 00110 01100 11
@@ -65,41 +77,49 @@ wire negativo;
 ALU ALU(DOA,B,funct7[6:5],DI,acarreo,desbordamiento,cero,negativo);
 
 initial begin
-
-i=32'b0000000_00011_00001_000_00001_0010011;//addi =3
-#11
-REG_WR = 1;
-#11
-REG_WR = 0;
-#11
-i=32'b0000000_00001_00001_000_00010_0110011;//add =6
-#11
-REG_WR = 1;
-#11
-REG_WR = 0;
-#11
-i=32'b0000000_00010_00001_000_00110_0110011;//add =9
-#11
-REG_WR = 1;
-#11
-REG_WR = 0;
-i=32'b0100000_00010_00010_000_00100_0110011; //sub =0
-#11
-REG_WR = 1;
-#11
-REG_WR = 0;
-i=32'b0100000_00110_00010_000_00110_0110011; //sub =-3
-#11
-REG_WR = 1;
-#11
-REG_WR = 0;
+#10
+clk =  ! clk;
+#10
+clk =  ! clk;
+#10
+clk =  ! clk;
+#10
+clk =  ! clk;
+#10
+clk =  ! clk;
+#10
+clk =  ! clk;
+#10
+clk =  ! clk;
+#10
+clk =  ! clk;
+#10
+clk =  ! clk;
+#10
+clk =  ! clk;
+#10
+clk =  ! clk;
+#10
+clk =  ! clk;
+#10
+clk =  ! clk;
+#10
+clk =  ! clk;
+#10
+clk =  ! clk;
+#10
+clk =  ! clk;
+#10
+clk =  ! clk;
+#10
+clk =  ! clk;
+#10
+clk =  ! clk;
+#10
+clk =  ! clk;
 end
-
 always begin
-    #10
-    clk =  ! clk;
-    salida = DI;
-    end
-
-
+#10
+REG_WR = !clk;
+end
 endmodule
