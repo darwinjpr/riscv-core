@@ -39,24 +39,36 @@ wire [4:0] rs2;
 wire [4:0] rd;
 wire [2:0] funct3;
 wire [6:0] funct7;
-if_id_buffer ID(i,opcode,rs1,rs2,rd,funct3,funct7);
+wire [11:0] imm;
+if_id_buffer ID(i,opcode,rs1,rs2,rd,funct3,funct7,imm);
 
 //banco de registros
-logic [31:0] DOA;
-logic [31:0] DOB;
-logic [31:0] DI;
+wire [31:0] DOA;
+wire [31:0] DOB;
+wire [31:0] DI;
 reg_bank b_registros(DOA, DOB, DI, rs1, rs2, rd, clk, REG_WR);
+
+//extension de signo
+wire [31:0]imm_ex;
+s_ext Ext_Signo(imm,imm_ex);
+
+//mux escoge ente imm y rs2
+wire [31:0]B;
+Mux_B muxB(i[5],DOB,imm_ex,B);
 
 //ALU
 wire cero;
-SUM_zero ALU(DOA,DOB,DI,cero);
-
-
-integer T2 = 10;
+SUM_zero ALU(DOA,B,DI,cero);
 
 initial begin
 
-i=32'b0000000_11100_11100_000_00110_0110011;
+i=32'b0000000_00011_11100_000_00110_0010011;
+#11
+REG_WR = 1;
+#11
+REG_WR = 0;
+#11
+i=32'b0000000_00110_11100_000_00110_0110011;
 #11
 REG_WR = 1;
 #11
@@ -70,7 +82,7 @@ REG_WR = 0;
 end
 
 always begin
-    #T2
+    #10
     clk =  ! clk;
     salida = DI;
     end

@@ -1,5 +1,17 @@
 `timescale 1ns / 1ps
 
+
+module Mux_B(
+    input sel,
+    input [31:0]rs2,
+    input [31:0]imm_ex,
+    output [31:0] B
+    );
+    
+assign B = sel ? rs2 : imm_ex;
+
+endmodule
+/*
 module Mux_B(
     input wire [31:0] Instruccion,resultado,
     input wire [1:0] Senal,
@@ -31,4 +43,6 @@ module Mux_B(
         
     endcase
     end
-endmodule
+endmodule 
+
+*/
