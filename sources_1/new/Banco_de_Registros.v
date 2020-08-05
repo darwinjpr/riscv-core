@@ -11,7 +11,7 @@ reg [31:0] regfile [31:0];
 integer i;
 initial begin 
     for (i = 0; i <= 31; i=i+1) begin // Ciclo for para inicializar cada espacio de memoria
-        regfile[i] = 32'd1;
+        regfile[i] = 32'd0;
 end end
 
 assign DOA = regfile[DIR_A];
