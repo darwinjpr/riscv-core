@@ -1,6 +1,14 @@
 `timescale 1ns / 1ps
 
 module Mux_A(
+    input [31:0]i_branch,
+    input sel,
+    output [31:0]salida    
+    );
+    
+    assign salida = sel ? i_branch : 32'd4;
+
+/*
     input wire [31:0] Instruccion,//isntrucccion que se está ejecutando,
     input wire Cero,//bandera de cero
     
@@ -20,5 +28,5 @@ module Mux_A(
     end
     end
 
-
+*/
 endmodule
