@@ -1,14 +1,15 @@
 `timescale 1ns / 1ps
 
 module UnidadControl(
-    input wire [31:0] Instruccion,
-    
-    output reg [1:0] S_Mux_B, S_Mux_C,//seÃ±ales de control de los muxes
+    input wire [6:0] opcode,
+    input clk,
+    output reg [1:0] S_Mux_B, S_Mux_C,//señales de control de los muxes
     output reg REG_RD, REG_WR, MEM_RD, MEM_WR
     );
-    wire [6:0] opcode=Instruccion[6:0];
+    //wire [6:0] opcode=Instruccion[6:0];
     
     always @(*) begin
+    
     case(opcode)
         7'b1100011: begin//branch
         S_Mux_B=2'b11;
@@ -28,7 +29,7 @@ module UnidadControl(
         MEM_WR=1'b0; 
         end
         
-        7'b011011: begin//add
+        7'b0110011: begin//add
         S_Mux_B=2'b00;
         S_Mux_C=2'b01;
         REG_RD=1'b1;
@@ -37,7 +38,7 @@ module UnidadControl(
         MEM_WR=1'b0; 
         end
         
-        7'b0011011:begin//addi
+        7'b0010011:begin//addi
         S_Mux_B=2'b01;
         S_Mux_C=2'b01;
         REG_RD=1'b1;
