@@ -11,7 +11,7 @@ module memoriainstrucciones#(             //-- Parametros
     reg [31:0] memins [Ni:0];
     integer i;//auxiliar para el bucle
     initial begin
-        $readmemh ("instrucciones.mem", memins); //carga la memoria de instrucciones del archivo .mem       
+        $readmemb ("instrucciones.mem", memins); //carga la memoria de instrucciones del archivo .mem       
         for (i = 0; i <= Ni; i=i+1) begin // Ciclo for para inicializar cada espacio de memoria
         //
             Memory_Ins[4*i] = memins[i][7:0];

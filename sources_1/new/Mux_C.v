@@ -1,12 +1,14 @@
 `timescale 1ns / 1ps
 
 module Mux_C(
-       input wire [31:0] Instruccion,resultado,datoMem,
-       input wire [1:0] Senal,
+       input [31:0] Instruccion,resultado,datoMem,
+       input [1:0] Senal,
        
        output reg[31:0] Salida
     
     );
+    
+    //assign Salida = Senal[1] ? (Senal[0] ? 32'bz : datoMem) : (Senal[0] ? resultado : {Instruccion[31:12],{12{1'b0}}});
     
     always @(*) begin
     case(Senal)

@@ -28,23 +28,22 @@ module if_id_buffer(
     output [4:0] rd,
     output [2:0] funct3,
     output [6:0] funct7,
-    output [11:0] imm
+    output [11:0] imm12,
+    output [6:0] imm11_5,
+    output [4:0] imm4_0
     );
     
+     
     assign opcode = instruccion [6:0];
     assign rs1 = instruccion [19:15];
     
-    assign imm = instruccion[5] ? 12'bx : instruccion [31:20];//cuando bit 5 es 0
     assign rs2 = instruccion[5] ? instruccion [24:20] : 5'bx;//cuando bit 5 es 1
-    assign funct7 = instruccion[5] ? instruccion [31:25] : 7'bx;//cuando bit 5 es 1
-    //assign <output> = <1-bit_select> ? <input1> : <input0>;
-    //assign imm = instruccion [31:20];
+    assign rd = instruccion[5] ? (instruccion[4] ? instruccion [11:7] : 5'bx) : instruccion [11:7];
     
-    //assign rs2 = instruccion [24:20];
-    //assign funct7 = instruccion [31:25];
-    
-    assign rd = instruccion [11:7];
     assign funct3 = instruccion [14:12];
-
+    assign funct7 = instruccion[5] ? (instruccion[4] ? instruccion [31:25] : 7'bx) : 7'bx;
+    assign imm12 = instruccion[5] ? 12'bx : instruccion [31:20];//cuando bit 5 es 0
+    assign imm11_5 = instruccion[5] ? (instruccion[4] ? 7'bx : instruccion [31:25]) : 7'bx;
+    assign imm4_0 = instruccion[5] ? (instruccion[4] ? 5'bx : instruccion [11:7]) : 5'bx;
     
 endmodule

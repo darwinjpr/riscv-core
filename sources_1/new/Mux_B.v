@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 
-
+/*
 module Mux_B(
     input sel,
     input [31:0]rs2,
@@ -9,13 +9,11 @@ module Mux_B(
     );
     
 assign B = sel ? rs2 : imm_ex;
+endmodule */
 
-endmodule
-/*
 module Mux_B(
-    input wire [31:0] Instruccion,resultado,
     input wire [1:0] Senal,
-  
+    input wire [31:0] imm,imm_sw,resultado,
     
     output reg [31:0] Salida
     
@@ -29,12 +27,12 @@ module Mux_B(
         end
         
         2'b01:begin//si la señal da un 01 la salida es un inmediato para addi y lw
-        Salida={{20{Instruccion[31]}},Instruccion[31:20]};
+        Salida=imm;
         end
         
         
         2'b10: begin//salida para cuando es un immediato de un store
-        Salida={{20{Instruccion[31]}},Instruccion[31:25],Instruccion[11:7]};
+        Salida=imm_sw;
         end
         
         2'b11:begin// salida para instrucciones que no ocupan el mux
@@ -44,5 +42,3 @@ module Mux_B(
     endcase
     end
 endmodule 
-
-*/
