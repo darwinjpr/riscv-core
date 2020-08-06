@@ -25,10 +25,10 @@ module ALU
            (input [N-1:0] ALUA,ALUB,  // entradas de N-1 bits              
            input  [1:0] ALUControl,// entrada de selccion 
            output [N-1:0] ALUResult, // Salida Resultado
-           output FlagAcarreo, // Bandera de acarreo
-           output reg FlagDesbordamiento,
-           output reg FlagCero,
-           output reg FlagNegativo
+           //output FlagAcarreo, // Bandera de acarreo
+           //output reg FlagDesbordamiento,
+           output reg FlagCero
+           //output reg FlagNegativo
 );
 
 //nuevas variables de conexion
@@ -37,7 +37,7 @@ logic salida_carry;         //conecta al carry de la alu
 
 //asignaciones de salidas de alu
 assign ALUResult = ALU_Result; // asiganar los valores de ALU_Result a ALUOU
-assign FlagAcarreo = salida_carry;
+//assign FlagAcarreo = salida_carry;
 
 //respuesta al shift izq y derecha
 //wire [N-1:0] r_shift_left, r_shift_right;  //variables auxiliares para shift left y right
@@ -64,8 +64,8 @@ CarryLookAheadSumadorR #(N) SUM2( ALUA, ALUB, ALU_RESTA, CarryRESTA, ALUFlagIn);
 //es decir, todas las funciones son llamadas, solo que al final del circuito se escoje cual es la salida
 always @(*)
 begin
-FlagDesbordamiento = 0;
-FlagNegativo = 0;
+//FlagDesbordamiento = 0;
+//FlagNegativo = 0;
 FlagCero = 0;
 salida_carry = 0;
 /*
@@ -87,7 +87,7 @@ salida_carry = 0;
         salida_carry = CarrySUMA;
         FlagCero = (ALU_Result == '0);
         //overflow
-        if (ALUA[N-1] == ALUB[N-1])
+        /*if (ALUA[N-1] == ALUB[N-1])
           begin
              if(ALUA[N-1] != ALU_Result[N-1])
                FlagDesbordamiento = 1; 
@@ -97,7 +97,7 @@ salida_carry = 0;
         else 
         FlagDesbordamiento = 0;
         //bandera negativo
-        FlagNegativo = (ALU_Result[N-1] == 1);
+        FlagNegativo = (ALU_Result[N-1] == 1);*/
     end
     2'b01: // resta 
     begin
@@ -105,7 +105,7 @@ salida_carry = 0;
         salida_carry = CarryRESTA;
         FlagCero = (ALU_Result == '0);
         //overflow
-        if (ALUA[N-1] != ALUB[N-1])
+        /*if (ALUA[N-1] != ALUB[N-1])
           begin
              if(ALUA[N-1] != ALU_Result[N-1])
                FlagDesbordamiento = 1; 
@@ -115,7 +115,7 @@ salida_carry = 0;
         else 
         FlagDesbordamiento = 0;
         //bandera negativo
-        FlagNegativo = (ALU_Result[N-1] == 1);
+        FlagNegativo = (ALU_Result[N-1] == 1);*/
     end
     /*
     4'b0010: //  incrementa1 --- suma1
@@ -210,7 +210,7 @@ salida_carry = 0;
           salida_carry = CarrySUMA;
           FlagCero = (ALU_Result == '0);
           //overflow
-          if (ALUA[N-1] == ALUB[N-1])
+          /*if (ALUA[N-1] == ALUB[N-1])
             begin
                if(ALUA[N-1] != ALU_Result[N-1])
                  FlagDesbordamiento = 1; 
@@ -220,7 +220,7 @@ salida_carry = 0;
           else 
           FlagDesbordamiento = 0;
           //bandera negativo
-          FlagNegativo = (ALU_Result[N-1] == 1);
+          FlagNegativo = (ALU_Result[N-1] == 1);*/
       end 
     endcase
 end

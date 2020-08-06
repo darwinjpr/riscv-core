@@ -69,12 +69,9 @@ wire [31:0]B;
 Mux_B muxB(i[5],DOB,imm_ex,B);
 
 //ALU
-wire acarreo;
-wire desbordamiento;
 wire cero;
-wire negativo;
 
-ALU ALU(DOA,B,funct7[6:5],DI,acarreo,desbordamiento,cero,negativo);
+ALU ALU(DOA,B,funct7[6:5],DI,cero);
 
 initial begin
 #10
