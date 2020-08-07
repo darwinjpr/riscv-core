@@ -92,6 +92,7 @@ module memoriadatos(
        // Pasar Direccion
        
         endcase
+       else MemOut = 32'bx; 
     end
 
     
