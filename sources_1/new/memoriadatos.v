@@ -15,15 +15,15 @@ module memoriadatos(
     );
     
     //Se declaran las 4 celdas de memoria.
-    reg	[7:0] Memory_Cell_0	[31:0];
-    reg	[7:0] Memory_Cell_1	[31:0];
-    reg	[7:0] Memory_Cell_2	[31:0];
-    reg	[7:0] Memory_Cell_3	[31:0];
+    reg	[7:0] Memory_Cell_0	[511:0];
+    reg	[7:0] Memory_Cell_1	[511:0];
+    reg	[7:0] Memory_Cell_2	[511:0];
+    reg	[7:0] Memory_Cell_3	[511:0];
     
     //Se inicializa la memoria y se declara todo en 0
     integer i;
     initial begin
-       for (i = 0; i <= 31; i=i+1) begin // Ciclo for para inicializar cada espacio de memoria
+       for (i = 0; i <= 512; i=i+1) begin // Ciclo for para inicializar cada espacio de memoria 2kB
             Memory_Cell_0[i] = 8'd0;
             Memory_Cell_1[i] = 8'd0;
             Memory_Cell_2[i] = 8'd0;
@@ -40,26 +40,26 @@ module memoriadatos(
         case(funct3)
             3'b000: 
             begin
-                Memory_Cell_0[Addr[5:0]] = Write_Data[7:0]; //store byte: Solo se escribe sobre la celda 0 de memoria (los 8 LSB del dato total)
-                Memory_Cell_1[Addr[5:0]] = 8'b00000000;
-                Memory_Cell_2[Addr[5:0]] = 8'b00000000;
-                Memory_Cell_3[Addr[5:0]] = 8'b00000000;            
+                Memory_Cell_0[Addr] = Write_Data[7:0]; //store byte: Solo se escribe sobre la celda 0 de memoria (los 8 LSB del dato total)
+                Memory_Cell_1[Addr] = 8'b00000000;
+                Memory_Cell_2[Addr] = 8'b00000000;
+                Memory_Cell_3[Addr] = 8'b00000000;            
             end
             
             3'b001:
             begin
-                Memory_Cell_0[Addr[5:0]] = Write_Data[7:0]; //store Halfbyte: Solo escribe sobre la celda 1 y 0 de memoria 
-                Memory_Cell_1[Addr[5:0]] = Write_Data[15:8];
-                Memory_Cell_2[Addr[5:0]] = 8'b00000000;
-                Memory_Cell_3[Addr[5:0]] = 8'b00000000;             
+                Memory_Cell_0[Addr] = Write_Data[7:0]; //store Halfbyte: Solo escribe sobre la celda 1 y 0 de memoria 
+                Memory_Cell_1[Addr] = Write_Data[15:8];
+                Memory_Cell_2[Addr] = 8'b00000000;
+                Memory_Cell_3[Addr] = 8'b00000000;             
             end
                
             3'b010:
             begin
-                Memory_Cell_0[Addr[5:0]] = Write_Data[7:0]; // Store word: Escribe sobre las cuatro celdas (32bits)
-                Memory_Cell_1[Addr[5:0]] = Write_Data[15:8];
-                Memory_Cell_2[Addr[5:0]] = Write_Data[23:16];
-                Memory_Cell_3[Addr[5:0]] = Write_Data[31:24];
+                Memory_Cell_0[Addr] = Write_Data[7:0]; // Store word: Escribe sobre las cuatro celdas (32bits)
+                Memory_Cell_1[Addr] = Write_Data[15:8];
+                Memory_Cell_2[Addr] = Write_Data[23:16];
+                Memory_Cell_3[Addr] = Write_Data[31:24];
             end
         endcase
         
@@ -67,7 +67,7 @@ module memoriadatos(
         case(funct3) //load byte: Solo lee una celda
             3'b000: 
             begin
-                MemOut[7:0] = Memory_Cell_0[Addr[5:0]];
+                MemOut[7:0] = Memory_Cell_0[Addr];
                 MemOut[15:8] = 8'b00000000;
                 MemOut[23:16] = 8'b00000000; 
                 MemOut[31:24] = 8'b00000000;
@@ -76,18 +76,18 @@ module memoriadatos(
    
             3'b001: //load halfbyte: lee 2 celdas 
             begin
-                MemOut[7:0] = Memory_Cell_0[Addr[5:0]]; 
-                MemOut[15:8] = Memory_Cell_1[Addr[5:0]];
+                MemOut[7:0] = Memory_Cell_0[Addr]; 
+                MemOut[15:8] = Memory_Cell_1[Addr];
                 MemOut[23:16] = 8'b00000000; 
                 MemOut[31:24] = 8'b00000000;                
             end
                
             3'b010: //load word, lee las 4 celdas
             begin
-                MemOut[7:0] = Memory_Cell_0[Addr[5:0]]; 
-                MemOut[15:8] = Memory_Cell_1[Addr[5:0]];
-                MemOut[23:16] = Memory_Cell_2[Addr[5:0]]; 
-                MemOut[31:24] = Memory_Cell_3[Addr[5:0]];
+                MemOut[7:0] = Memory_Cell_0[Addr]; 
+                MemOut[15:8] = Memory_Cell_1[Addr];
+                MemOut[23:16] = Memory_Cell_2[Addr]; 
+                MemOut[31:24] = Memory_Cell_3[Addr];
             end
        // Pasar Direccion
        
