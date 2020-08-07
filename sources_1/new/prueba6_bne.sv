@@ -97,69 +97,10 @@ Mux_A muxA(i_branch,S_Mux_A,opPC);
 
  
 initial begin
-#10
+
+for (int i = 0; i <= 10000; i=i+1) begin
+#1
 clk =  ! clk;
-#10
-clk =  ! clk;
-#10
-clk =  ! clk;
-#10
-clk =  ! clk;
-#10
-clk =  ! clk;
-#10
-clk =  ! clk;
-#10
-clk =  ! clk;
-#10
-clk =  ! clk;
-#10
-clk =  ! clk;
-#10
-clk =  ! clk;
-#10
-clk =  ! clk;
-#10
-clk =  ! clk;
-#10
-clk =  ! clk;
-#10
-clk =  ! clk;
-#10
-clk =  ! clk;
-#10
-clk =  ! clk;
-#10
-clk =  ! clk;
-#10
-clk =  ! clk;
-#10
-clk =  ! clk;
-#10
-clk =  ! clk;
-#10
-clk =  ! clk;
-#10
-clk =  ! clk;
-#10
-clk =  ! clk;
-#10
-clk =  ! clk;
-#10
-clk =  ! clk;
-#10
-clk =  ! clk;
-#10
-clk =  ! clk;
-#10
-clk =  ! clk;
-#10
-clk =  ! clk;
-#10
-clk =  ! clk;
-#10
-clk =  ! clk;
-#10
-clk =  ! clk;
+end
 end
 endmodule
