@@ -32,8 +32,8 @@ module if_id_buffer(
     output [6:0] imm11_5,
     output [4:0] imm4_0,
     output [6:0] imm12105,
-    output [4:0] imm4111,
-    output [19:0] imm3112 //lui
+    output [4:0] imm4111
+//    output [19:0] imm3112 //lui
     );
     /*
     //Mux plantilla
@@ -239,6 +239,7 @@ module if_id_buffer(
     :(instruccion[4]?(instruccion[2]?(5'bx):(5'bx))
     :(instruccion[2]?(5'bx):(5'bx))));
     
+    /*
     //imm3112   
     assign imm3112 = instruccion[6]?
     
@@ -255,6 +256,6 @@ module if_id_buffer(
     :(instruccion[2]?(20'bx):(20'bx)))
     
     :(instruccion[4]?(instruccion[2]?(20'bx):(20'bx))
-    :(instruccion[2]?(20'bx):(20'bx))));
+    :(instruccion[2]?(20'bx):(20'bx))));*/
 
 endmodule

@@ -41,7 +41,7 @@ wire [6:0] imm11_5;//sw
 wire [4:0] imm4_0;//sw
 wire [6:0] imm12105;//bne
 wire [4:0] imm4111;//bne
-wire [19:0] imm3112; //lui
+//wire [19:0] imm3112; //lui
 //Unidad de control
 wire S_Mux_A;
 logic control_ALU;
@@ -74,7 +74,7 @@ add4 addPC(PC,opPC,PC_OutSum);
 //Memoria instrucciones
 memoriainstrucciones nextInst(.Din(PC),.Dout(i));
 //ID
-if_id_buffer ID(i,opcode,rs1,rs2,rd,funct3,funct7,imm,imm11_5,imm4_0,imm12105,imm4111,imm3112);
+if_id_buffer ID(i,opcode,rs1,rs2,rd,funct3,funct7,imm,imm11_5,imm4_0,imm12105,imm4111);
 //Unidad de control
 UnidadControl control(opcode,funct7[5],clk,cero,control_ALU,S_Mux_A,S_Mux_B, S_Mux_C,REG_RD, REG_WR, MEM_RD, MEM_WR);
 //banco de registros
@@ -98,7 +98,7 @@ Mux_A muxA(i_branch,S_Mux_A,opPC);
  
 initial begin
 
-for (int i = 0; i <= 100; i=i+1) begin
+for (int i = 0; i <= 10000; i=i+1) begin
 #1
 clk =  ! clk;
 end
