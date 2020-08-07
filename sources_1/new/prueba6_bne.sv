@@ -44,7 +44,7 @@ wire [4:0] imm4111;//bne
 wire [19:0] imm3112; //lui
 //Unidad de control
 wire S_Mux_A;
-wire control_ALU;
+logic control_ALU;
 wire [1:0] S_Mux_B, S_Mux_C;
 wire REG_RD, REG_WR, MEM_RD, MEM_WR;
 //banco de registros
@@ -59,7 +59,7 @@ wire [31:0]imm_sw;
 wire [31:0]B;
 //ALU
 wire [31:0] ALU_out;
-logic cero;
+wire cero;
 //Memoria de datos
 wire [31:0]MemOut;
 //FETCH
@@ -98,7 +98,7 @@ Mux_A muxA(i_branch,S_Mux_A,opPC);
  
 initial begin
 
-for (int i = 0; i <= 10000; i=i+1) begin
+for (int i = 0; i <= 100; i=i+1) begin
 #1
 clk =  ! clk;
 end

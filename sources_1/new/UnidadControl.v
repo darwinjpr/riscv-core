@@ -4,7 +4,7 @@ module UnidadControl(
     input wire [6:0] opcode,
     input wire funct7_5,
     input clk,cero,
-    output reg [1:0]control_ALU,
+    output reg control_ALU,
     output  S_Mux_A,
     output reg [1:0] S_Mux_B, S_Mux_C,//señales de control de los muxes
     output reg REG_RD, REG_WR, MEM_RD, MEM_WR
@@ -25,7 +25,7 @@ module UnidadControl(
         REG_WR= 1'b0;
         MEM_RD=1'b0;
         MEM_WR=1'b0; 
-        control_ALU=2'b01;
+        control_ALU=1'b1;
         end
         
         7'b0110111: begin//lui
@@ -36,7 +36,7 @@ module UnidadControl(
         REG_WR= 1'b1;
         MEM_RD=1'b0;
         MEM_WR=1'b0;
-        control_ALU=2'bxx;
+        control_ALU=1'bx;
         end
         
         7'b0110011: begin//add
@@ -48,7 +48,7 @@ module UnidadControl(
         MEM_RD=1'b0;
         MEM_WR=1'b0;
         if (funct7_5 == 1'b1)control_ALU=2'b01;
-        else control_ALU=2'b00;
+        else control_ALU=1'b0;
         end
         
         7'b0010011:begin//addi
@@ -59,7 +59,7 @@ module UnidadControl(
         REG_WR= 1'b1;
         MEM_RD=1'b0;
         MEM_WR=1'b0; 
-        control_ALU=2'b00;
+        control_ALU=1'b0;
         end
         
         
@@ -71,7 +71,7 @@ module UnidadControl(
         REG_WR= 1'b0;
         MEM_RD=1'b0;
         MEM_WR=1'b1;
-        control_ALU=2'b00;
+        control_ALU=1'b0;
         end
         
         
@@ -83,7 +83,7 @@ module UnidadControl(
         REG_WR= 1'b1;
         MEM_RD=1'b1;
         MEM_WR=1'b0; 
-        control_ALU=2'b00;
+        control_ALU=1'b0;
         end
      
      
