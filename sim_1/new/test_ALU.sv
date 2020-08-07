@@ -12,6 +12,7 @@ initial begin
 A=32'd4;
 B=32'd4;
 control_ALU=1'b0;
+$monitor ("t=%3d ALU_out=%32b,cero=%b",$time,ALU_out,cero);
 #1
 A=32'd4;
 B=32'd4;
