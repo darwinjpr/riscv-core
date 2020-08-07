@@ -43,7 +43,7 @@ wire [6:0] imm12105;//bne
 wire [4:0] imm4111;//bne
 wire [19:0] imm3112; //lui
 //Unidad de control
-logic S_Mux_A=0;
+wire S_Mux_A;
 wire control_ALU;
 wire [1:0] S_Mux_B, S_Mux_C;
 wire REG_RD, REG_WR, MEM_RD, MEM_WR;
