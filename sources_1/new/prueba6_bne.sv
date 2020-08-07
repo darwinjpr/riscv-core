@@ -97,7 +97,60 @@ Mux_A muxA(i_branch,S_Mux_A,opPC);
 
  
 initial begin
+ /*  // Define file handle integer
+integer outfile;
 
+initial begin
+   // Open file output.dat for writing
+   outfile = $fopen("output.dat", "w");
+
+   // Check if file was properly opened and if not, produce error and exit
+   if (outfile == 0) begin
+      $display("Error: File, output.dat could not be opened.\nExiting Simulation.");
+      $finish;
+   end
+
+   // Write monitor data to a file
+   $fmonitor (outfile, "Time: %t\t Data_out = %h", $realtime, Data_out);
+
+   // Wait for 1 ms and end monitoring
+   #1000000;
+
+   // Close file to end monitoring
+   $fclose(outfile);
+end
+
+// Example of reading a file using $fscanf:
+// ----------------------------------------
+
+real number;
+
+// Define integers for file handling
+integer number_file;
+integer i=1;
+
+initial begin
+   // Open file numbers.txt for reading
+   number_file = $fopen("numbers.txt", "r");
+   // Produce error and exit if file could not be opened
+   if (number_file == 0) begin
+      $display("Error: Failed to open file, numbers.txt\nExiting Simulation.");
+      $finish;
+   end
+   // Loop while data is being read from file
+   //    (i will be -1 when end of file or 0 for blank line)
+   while (i>0) begin
+      $display("i = %d", i);
+      i=$fscanf(number_file, "%f", number);
+      $display("Number read from file is %f", number);
+      @(posedge CLK);
+   end
+   // Close out file when finished reading
+   $fclose(number_file);
+   #100;
+   $display("Simulation ended normally");
+   $stop;
+end*/
 for (int i = 0; i <= 10000; i=i+1) begin
 #1
 clk =  ! clk;
