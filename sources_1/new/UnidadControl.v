@@ -19,9 +19,9 @@ module UnidadControl(
         7'b1100011: begin//branch
 //        if (cero == 1'b1)S_Mux_A=1'b1;
 //        else S_Mux_A=1'b0;
-        S_Mux_B=2'b11;
+        S_Mux_B=2'b00;
         S_Mux_C=2'b11;
-        REG_RD=1'b0;
+        REG_RD=1'b1;
         REG_WR= 1'b0;
         MEM_RD=1'b0;
         MEM_WR=1'b0; 
